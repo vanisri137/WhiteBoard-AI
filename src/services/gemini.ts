@@ -7,12 +7,19 @@ export const getAISuggestions = async (elements: any[]) => {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: `
-Analyze this whiteboard:
+  contents: `
+You are an expert diagram analyst.
 
+Whiteboard elements:
 ${JSON.stringify(elements)}
 
-Give 3 short suggestions for improvement.
+Identify:
+1. What the user is trying to draw.
+2. Missing labels.
+3. Diagram improvements.
+4. Potential flowchart/process improvements.
+
+Respond in bullet points.
 `
     });
 
