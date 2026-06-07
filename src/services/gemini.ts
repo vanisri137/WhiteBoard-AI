@@ -16,11 +16,9 @@ Give 3 short suggestions for improvement.
 `
     });
 
-    console.log("Suggestions:", response.text);
-
-    return [];
+    return response.text || "No suggestions available";
   } catch (err) {
     console.error("Gemini Error:", err);
-    return [];
+    return "Failed to generate suggestions.";
   }
 };
