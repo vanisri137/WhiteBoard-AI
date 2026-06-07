@@ -293,19 +293,16 @@ export default function Whiteboard() {
     socket.emit('save-board', { boardId, elements: [] });
   };
 
-  const handleAISuggestions = async () => {
-    setLoadingAI(true);
-    const suggestions = await getAISuggestions(elements);
-    if (suggestions.length > 0) {
-      const newElements = [...elements, ...suggestions];
-      setElements(newElements);
-      saveToHistory(newElements);
-      socket.emit('save-board', { boardId, elements: newElements });
-      // Emit each new element to others
-      suggestions.forEach(el => socket.emit('draw-element', { boardId, element: el }));
-    }
-    setLoadingAI(false);
-  };
+const handleAISuggestions = async () => {
+  setLoadingAI(true);
+
+  const suggestions = await getAISuggestions(elements);
+
+  setAiSuggestions(suggestions);
+  setShowAISidebar(true);
+
+  setLoadingAI(false);
+};
 
   return (
     <div className="h-screen flex flex-col bg-stone-100 overflow-hidden">
@@ -540,7 +537,28 @@ export default function Whiteboard() {
           </div>
         </div>
       </main>
+{showAISidebar && (
+  <div className="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl border-l z-50 p-6 overflow-y-auto">
+    
+    <div className="flex justify-between items-center mb-4">
+      <h2 className="text-xl font-bold">
+        🤖 AI Suggestions
+      </h2>
 
+      <button
+        onClick={() => setShowAISidebar(false)}
+        className="text-gray-500 hover:text-black text-xl"
+      >
+        ✕
+      </button>
+    </div>
+
+    <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">
+      {aiSuggestions}
+    </div>
+
+  </div>
+)}
       {/* AI Suggestion Toast */}
       <AnimatePresence>
         {loadingAI && (
