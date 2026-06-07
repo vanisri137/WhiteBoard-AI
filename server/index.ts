@@ -24,7 +24,7 @@ const io = new Server(httpServer, {
   },
 });
 
-const PORT = 5000;
+const PORT =  Number(process.env.PORT) || 5000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/nexusboard';
 const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-key';
 
