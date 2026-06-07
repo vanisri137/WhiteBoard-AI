@@ -7,19 +7,18 @@ export const getAISuggestions = async (elements: any[]) => {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-  contents: `
-You are an expert diagram analyst.
+      
+contents: `
+You are an AI whiteboard assistant.
 
-Whiteboard elements:
-${JSON.stringify(elements)}
+Analyze the whiteboard and provide:
 
-Identify:
-1. What the user is trying to draw.
-2. Missing labels.
-3. Diagram improvements.
-4. Potential flowchart/process improvements.
+1. Diagram Analysis (2-3 sentences)
+2. 5 Improvement Suggestions
+3. Recommended Next Step
 
-Respond in bullet points.
+Keep the response under 250 words.
+Use headings and bullet points.
 `
     });
 
