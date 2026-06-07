@@ -5,8 +5,11 @@ const ai = new GoogleGenAI({apiKey: import.meta.env.VITE_GEMINI_API_KEY});
 
 export const getAISuggestions = async (elements: BoardElement[]): Promise<BoardElement[]> => {
   try {
+    console.log("AI called");
+    console.log("Elements:", elements);
+
     const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
+      model: "gemini-2.5-flash",
       contents: `
         Analyze the following whiteboard elements and suggest improvements or auto-completions.
         The elements are in JSON format.
@@ -43,8 +46,10 @@ export const getAISuggestions = async (elements: BoardElement[]): Promise<BoardE
         },
       },
     });
-
+     console.log("Gemini Response:", response);
     const text = response.text;
+    console.log("Response Text:", text);
+
     if (text) {
       return JSON.parse(text);
     }
