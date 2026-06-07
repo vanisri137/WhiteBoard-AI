@@ -32,6 +32,8 @@ export default function Whiteboard() {
   const [isEditingName, setIsEditingName] = useState(false);
   const [activeUsers, setActiveUsers] = useState<any[]>([]);
   const [selectedColor, setSelectedColor] = useState('#000000');
+  const [aiSuggestions, setAiSuggestions] = useState('');
+  const [showAISidebar, setShowAISidebar] = useState(false);
   
   const stageRef = useRef<any>(null);
   const socket = getSocket();
