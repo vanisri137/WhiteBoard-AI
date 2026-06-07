@@ -345,7 +345,7 @@ Built a real-time collaborative whiteboard application using React, TypeScript, 
 
 ## Author
 
-**Vani Sri**
+**Vani Nandyala**
 
 Chemical Engineering Undergraduate, IIT (BHU) Varanasi
 
