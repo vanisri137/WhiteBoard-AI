@@ -554,8 +554,8 @@ const handleAISuggestions = async () => {
     </div>
 
     <div className="whitespace-pre-wrap text-gray-700 leading-relaxed">
-      {aiSuggestions}
-    </div>
+  {aiSuggestions.replace(/\*\*/g, '')}
+</div>
 
   </div>
 )}
