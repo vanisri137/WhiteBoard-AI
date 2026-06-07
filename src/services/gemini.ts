@@ -3,18 +3,20 @@ import { GoogleGenAI } from "@google/genai";
 const ai = new GoogleGenAI({
   apiKey: import.meta.env.VITE_GEMINI_API_KEY
 });
-
-export const getAISuggestions = async () => {
+export const getAISuggestions = async (elements: any[]) => {
   try {
-    console.log("Starting Gemini test");
-
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: "Say hello"
+      contents: `
+Analyze this whiteboard:
+
+${JSON.stringify(elements)}
+
+Give 3 short suggestions for improvement.
+`
     });
 
-    console.log("Response:", response);
-    console.log("Text:", response.text);
+    console.log("Suggestions:", response.text);
 
     return [];
   } catch (err) {
