@@ -337,12 +337,6 @@ _Add screenshot here_
 
 ---
 
-## Resume Project Description
-
-Built a real-time collaborative whiteboard application using React, TypeScript, Node.js, MongoDB, and Socket.IO. Implemented JWT authentication, board persistence, multi-user synchronization through Socket.IO rooms, and AI-powered suggestions using Google Gemini. Enabled real-time drawing, editing, and collaboration across multiple users while maintaining persistent board state.
-
----
-
 ## Author
 
 **Vani Nandyala**
