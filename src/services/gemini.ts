@@ -1,52 +1,28 @@
 import { GoogleGenAI } from "@google/genai";
+import type { BoardElement } from "../types";
 
 const ai = new GoogleGenAI({
   apiKey: import.meta.env.VITE_GEMINI_API_KEY,
 });
 
-export const getAISuggestions = async (elements: any[]) => {
+export const getAISuggestions = async (elements: BoardElement[]) => {
   try {
-    // Convert whiteboard elements into a readable description
-    const boardDescription =
-      elements.length > 0
-        ? elements
-            .map((element) => {
-              switch (element.type) {
-                case "text":
-                  return `Text: "${element.text}"`;
-
-                case "rectangle":
-                  return "Rectangle";
-
-                case "circle":
-                  return "Circle";
-
-                case "line":
-                  return "Freehand drawing";
-
-                case "arrow":
-                  return "Arrow";
-
-                default:
-                  return element.type || "Unknown Element";
-              }
-            })
-            .join("\n")
-        : "The whiteboard is currently empty.";
+    // Convert whiteboard elements into structured JSON
+    const boardContext = JSON.stringify(elements, null, 2);
 
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: `
 You are an AI brainstorming assistant.
 
-Below is the current whiteboard content:
+The following JSON represents the current whiteboard.
 
-${boardDescription}
+${boardContext}
 
 Analyze the whiteboard and provide:
 
-1. A short summary of the ideas.
-2. Missing points or improvements.
+1. A short summary of the current ideas.
+2. Missing ideas or gaps.
 3. Suggestions to improve the brainstorming.
 4. Recommended next steps.
 
