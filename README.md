@@ -321,22 +321,6 @@ Tracked connected users and displayed active collaborators in real time.
 
 ---
 
-## Screenshots
-
-### Login Page
-
-_Add screenshot here_
-
-### Dashboard
-
-_Add screenshot here_
-
-### Collaborative Whiteboard
-
-_Add screenshot here_
-
----
-
 ## Author
 
 **Vani Nandyala**
