@@ -7,27 +7,54 @@ const ai = new GoogleGenAI({
 
 export const getAISuggestions = async (elements: BoardElement[]) => {
   try {
-    // Convert whiteboard elements into structured JSON
-    const boardContext = JSON.stringify(elements, null, 2);
+    // Send only useful whiteboard information
+    const boardContext = JSON.stringify(
+      elements.map((element) => ({
+        type: element.type,
+        text: element.text || "",
+        x: element.x,
+        y: element.y,
+        width: element.width,
+        height: element.height,
+        radius: element.radius,
+        points: element.points,
+      })),
+      null,
+      2
+    );
 
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: `
-You are an AI brainstorming assistant.
+You are an AI whiteboard assistant.
 
-The following JSON represents the current whiteboard.
+Your task has 3 parts:
+
+1. Identify all elements drawn by the user on the whiteboard and analyze what the user is trying to say or build.
+2. Describe the whiteboard beautifully in exactly 5 lines.
+3. If the theme or idea looks incomplete, suggest the necessary elements that should be added or drawn.
+
+Use the following whiteboard data as context:
 
 ${boardContext}
 
-Analyze the whiteboard and provide:
+Format the response like this:
 
-1. A short summary of the current ideas.
-2. Missing ideas or gaps.
-3. Suggestions to improve the brainstorming.
-4. Recommended next steps.
+### 1. Whiteboard Analysis
+...
 
-Keep the response under 250 words.
-Use clear headings and bullet points.
+### 2. Beautiful 5-Line Description
+(Line 1)
+(Line 2)
+(Line 3)
+(Line 4)
+(Line 5)
+
+### 3. Missing / Suggested Elements
+- ...
+- ...
+
+Keep the response clear, useful, and concise.
 `,
     });
 
