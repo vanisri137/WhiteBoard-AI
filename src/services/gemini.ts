@@ -25,30 +25,21 @@ export const getAISuggestions = async (elements: BoardElement[]) => {
 
     const response = await ai.models.generateContent({
       model: "gemini-3-flash",
-      contents: `You are an intelligent AI Whiteboard Assistant.
+      contents: `You are an AI Whiteboard Assistant.
 
 You are given:
+1. An image of the current whiteboard
+2. Structured JSON of the board elements
 
-1. An image of the current whiteboard.
-2. Structured JSON describing all whiteboard elements.
+Your tasks:
+1. Identify the real-world objects, drawings, symbols, and text in the whiteboard.
+2. Infer what the user is trying to draw or communicate.
+3. Describe the scene beautifully in exactly 5 lines.
+4. If the drawing looks incomplete, suggest the missing elements that would complete it.
+5. Do not describe only shapes like rectangle or circle unless nothing clearer can be inferred.
+6. If you are uncertain, say "appears to be" instead of being generic.
 
-Your tasks are:
-
-1. Identify every object, drawing, handwritten text, symbol and shape.
-
-2. Infer what the user is trying to communicate even if the drawing is incomplete.
-
-3. Describe the overall theme in exactly five beautiful sentences.
-
-4. If the drawing looks incomplete,
-suggest additional elements that should be added.
-
-5. If the drawing already represents something meaningful,
-suggest improvements instead of generic advice.
-
-Do NOT simply list shapes.
-
-Recognize real-world objects whenever possible.`,
+Be specific and visual.`,
     });
 
     return response.text || "No suggestions available.";
